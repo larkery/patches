@@ -1,18 +1,25 @@
 --- a/config.def.h
 +++ b/config.def.h
-@@ -48,9 +48,8 @@
+@@ -46,13 +46,11 @@
+ }
+ 
  /* DOWNLOAD(URI, referer) */
- #define DOWNLOAD(d, r) { \
- 	.v = (char *[]){ "/bin/sh", "-c", \
+-#define DOWNLOAD(d, r) { \
+-	.v = (char *[]){ "/bin/sh", "-c", \
 -	     "stterm -e /bin/sh -c \"curl -J -O --user-agent '$1'" \
 -	     " --referer '$2' -b $3 -c $3 '$0';" \
 -	     " sleep 5;\"", \
-+         "download --user-agent '$1'" \
-+         " --referer '$2' -b $3 -c $3 '$0'",   \
- 	     d, useragent, r, cookiefile, NULL \
- 	} \
+-	     d, useragent, r, cookiefile, NULL \
+-	} \
++#define DOWNLOAD(d, r) {                                \
++    .v = (char *[]){ "/bin/sh", "-c",                   \
++                     "download \"$@\"",                 \
++                     d, useragent, r, cookiefile, NULL  \
++    }                                                   \
  }
-@@ -67,13 +66,13 @@
+ 
+ /* PLUMB(URI) */
+@@ -67,13 +65,13 @@
  
  #define ONLOAD(u) { \
  	.v = (char *[]){"/bin/sh", "-c", \
@@ -28,7 +35,7 @@
  	} \
  }
  
-@@ -124,7 +123,7 @@
+@@ -124,7 +122,7 @@
  	{ MODKEY,               GDK_KEY_o,      source,     { 0 } },
  	{ MODKEY|GDK_SHIFT_MASK,GDK_KEY_o,      inspector,  { 0 } },
  
