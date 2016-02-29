@@ -13,7 +13,7 @@
 -	} \
 +#define DOWNLOAD(d, r) {                                \
 +    .v = (char *[]){ "/bin/sh", "-c",                   \
-+                     "download \"$@\"",                 \
++                     "download \"$0\" \"$@\"",                 \
 +                     d, useragent, r, cookiefile, NULL  \
 +    }                                                   \
  }
