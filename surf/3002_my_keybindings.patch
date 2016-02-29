@@ -1,0 +1,39 @@
+--- a/config.def.h
++++ b/config.def.h
+@@ -48,9 +48,8 @@
+ /* DOWNLOAD(URI, referer) */
+ #define DOWNLOAD(d, r) { \
+ 	.v = (char *[]){ "/bin/sh", "-c", \
+-	     "stterm -e /bin/sh -c \"curl -J -O --user-agent '$1'" \
+-	     " --referer '$2' -b $3 -c $3 '$0';" \
+-	     " sleep 5;\"", \
++         "download --user-agent '$1'" \
++         " --referer '$2' -b $3 -c $3 '$0'",   \
+ 	     d, useragent, r, cookiefile, NULL \
+ 	} \
+ }
+@@ -67,13 +66,13 @@
+ 
+ #define ONLOAD(u) { \
+ 	.v = (char *[]){"/bin/sh", "-c", \
+-		"~/.surf/omnibar addhist \"$0\"", u, NULL \
++        "omnibar addhist \"$0\"", u, NULL \
+ 	} \
+ }
+ 
+ #define GOTO { \
+ 	.v = (char *[]){"/bin/sh", "-c", \
+-		"~/.surf/omnibar goto \"$0\" \"$1\"", winid, "_SURF_GO", NULL \
++        "omnibar goto \"$0\" \"$1\"", winid, "_SURF_GO", NULL \
+ 	} \
+ }
+ 
+@@ -124,7 +123,7 @@
+ 	{ MODKEY,               GDK_KEY_o,      source,     { 0 } },
+ 	{ MODKEY|GDK_SHIFT_MASK,GDK_KEY_o,      inspector,  { 0 } },
+ 
+-	{ MODKEY,               GDK_KEY_g,      spawn,      SETPROP("_SURF_URI", "_SURF_GO") },
++    { MODKEY,               GDK_KEY_g,      spawn,      GOTO },
+ 	{ MODKEY,               GDK_KEY_f,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND") },
+ 	{ MODKEY,               GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND") },
+ 
